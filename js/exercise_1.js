@@ -1,29 +1,27 @@
-//function to create an array with 1000 shuffled numbers
-(function numGenerator () {
-	var numArray = []; //create empty array to hold 1000 numbers
+var Generator = {};
 
-	//create and push numbers into the array
-	for (var i = 1; i <= 1000; i++) {
-		numArray.push(i);
-	}
+(function() {
+	Generator.numGenerator = function(quantity) {
+		var numArray = []; //create empty array to hold 1000 numbers
 
-	shuffleArray(numArray); //shuffle the numbers in the array 
-	numArray = numArray.join(", ")
+		//create and push numbers into the array
+		for (var i = 1; i <= quantity; i++) {
+			numArray.push(i);
+		}
 
-	document.write("<p>" + numArray + "</p>");
+		for (var i = numArray.length - 1; i > 0; i--) {
+			var j = Math.floor(Math.random() * (i + 1));
+			var temp = numArray[i];
+			numArray[i] = numArray[j];
+			numArray[j] = temp;
+		}
+		return numArray;
+	};
+
+	window.onload = function() {
+		var buildArray = Generator.numGenerator(1000);
+		numArray_str = buildArray.join("<br>");
+
+		document.getElementById('main').innerHTML = '<p>' + numArray_str + '</p>';
+	};
 })();
-
-
-//function to shuffle numbers in an array
-function shuffleArray (genArray) {
-
-	for (var i = genArray.length - 1; i > 0; i--) {
-		var j = Math.floor(Math.random() * (i + 1));
-		var temp = genArray[i];
-			genArray[i] = genArray[j];
-			genArray[j] = temp;
-	
-		
-	}
-	return genArray;
-}
